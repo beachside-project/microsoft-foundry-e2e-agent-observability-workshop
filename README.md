@@ -1,115 +1,106 @@
-# Workshop: "Observe, Optimize & Protect Your AI Agents In Microsoft Foundry"
+# ワークショップ: 「Microsoft Foundry で AI エージェントを観測・最適化・保護する」
 
-## Session Description
+## セッション概要
 
-**Duration:** 75 minutes
+**所要時間:** 75 分
 
-Want to build trustworthy AI agents? The hard part lies NOT in making them work the first time, but in **keeping them working continuously** over the lifetime of the application - even as models get updated, prompts get refined, retrieval pipelines drift, and real-world use uncovers edge cases. To do this, we need a unified platform that provides end-to-end observability - 
-with rich developer tools that take us seamlessly from _detecting_ AI quality issues to _diagnosing_ them, and _optimizing_ solutions for performance in an iterative fashion.
+信頼できる AI エージェントを構築したいですか？難しいのは初回に動かすことではなく、モデルの更新、プロンプトの改良、検索パイプラインのドリフト、実運用で明らかになるエッジケースなどがあっても、アプリケーションのライフタイム全体を通じて **継続的に動作させ続けること** です。これを実現するには、エンドツーエンドの観測性 (observability) を提供する統合プラットフォームが必要です。AI 品質の問題を _検出_ し、_診断_ し、反復的にソリューションのパフォーマンスを _最適化_ できる、シームレスにつながった豊富な開発者ツールが求められます。
 
-In this workshop, we'll get hands-on experience with the Microsoft Foundry observabilty platform by exploring one of two available paths:
+このワークショップでは、Microsoft Foundry の観測性プラットフォームを実際に体験するため、以下の 2 つのパスのうちいずれかを進めます:
 
-1. **Using Foundry SDK** - use a code-first approach to learn how you can build, evaluate, trace, and red-team your AI agent solution.
-1. **Using Foundry Skills** - use a coding-agent approach to orchestrate a full eval-driven optimization cycle from a base AI agent.
+1. **Foundry SDK を使う** - コードファーストのアプローチで、AI エージェントソリューションのビルド・評価・トレース・レッドチーミングの方法を学びます。
+1. **Foundry Skills を使う** - コーディングエージェントのアプローチで、ベースとなる AI エージェントから評価駆動の最適化サイクル全体をオーケストレーションします。
 
-The first option is more traditional, giving you a sense for the concepts, tools and workflows involved. The second option offers an early preview into an enhanced developer experience where the coding agent accelerates the "evaluate-optimize" loop to take actions (like creating datasets, running batch evaluations, comparing versions, optimizing prompts or instructions etc.) based on observed results rather than guesswork. Along the way, you'll build your intuition for these tools by looking at the agent reasoning process and guiding its decision-making when prompted.
+最初のオプションはより伝統的で、関連する概念・ツール・ワークフローを体感できます。2 つ目のオプションは、強化された開発者体験のプレビューであり、観測された結果に基づいて (推測ではなく) コーディングエージェントが「評価-最適化」ループを加速し、データセット作成・バッチ評価実行・バージョン比較・プロンプトや指示の最適化などのアクションを実行します。途中で、エージェントの推論プロセスを観察し、必要に応じて意思決定を導きながら、これらのツールへの直感を養っていきます。
 
-## Application Scenario
+## アプリケーションシナリオ
 
-We'll use a consistent scenario across all labs, allowing us to think about features and outcomes in the context of a real-world use case. 
+すべてのラボで一貫したシナリオを使用し、現実的なユースケースの文脈で機能と成果を考えられるようにします。
 
-**Contoso Travel** is a fictitious mid-size travel agency whose team of human advisors can no longer keep up with the volume of customer inquiries for booking travel. They need an AI-powered travel assistant — a system of intelligent agents that can search relevant inventory (e.g., hotels, flights, car rentals) to make personalized recommendations, and deliver customized itimeraries across multi-turn conversations.
+**Contoso Travel** は架空の中規模旅行代理店で、人間のアドバイザーチームでは旅行予約に関する顧客からの問い合わせ件数に対応しきれなくなっています。彼らは、関連する在庫 (ホテル・フライト・レンタカーなど) を検索してパーソナライズされた推奨を行い、複数ターンにわたる会話の中でカスタマイズされた旅程を提供できる、AI 駆動の旅行アシスタント — 知的なエージェントのシステム — を必要としています。
 
-## Workshop Overview
+## ワークショップ概要
 
-In this workshop, we'll trace the AI developer journey from _planning_ to _prototyping_ to _production_. By the end of the workshop, you should be able to:
+このワークショップでは、_計画_ から _プロトタイピング_、そして _本番運用_ までの AI 開発者の道のりをたどります。ワークショップ終了時には、以下のことができるようになっているはずです:
 
-1. _Observe_ agentic execution with OpenTelemetry traces
-1. _Optimize_ agentic performance assisted by Foundry skills
-1. _Protect_ agents from attacks using Red Teaming scans
-1. _Deploy_ agents, then monitor & analyze insights with Ask AI 
+1. OpenTelemetry トレースでエージェントの実行を _観測_ する
+1. Foundry skills を活用してエージェントのパフォーマンスを _最適化_ する
+1. Red Teaming スキャンでエージェントを攻撃から _保護_ する
+1. エージェントを _デプロイ_ し、Ask AI でインサイトを監視・分析する
 
-We'll achieve this using the Microsoft Foundry platform tools and workflows. By the end of this workshop you should be able to:
+これらは Microsoft Foundry プラットフォームのツールとワークフローを使って実現します。ワークショップ終了時には、以下のことができるようになっているはずです:
 
-1. _Setup_ a single prompt agent with no code - using the [Foundry portal](https://learn.microsoft.com/en-us/azure/foundry/how-to/navigate-from-classic?view=foundry#navigate-the-portal).
-1. _Build_ a multi-agent solution code-first - using [the Foundry SDK](https://learn.microsoft.com/en-us/azure/foundry/how-to/develop/sdk-overview?view=foundry&pivots=programming-language-python)
-1. _Observe & Optimize_ an AI agent with coding agents - using [Foundry skills](https://github.com/microsoft/GitHub-Copilot-for-Azure/tree/main/plugin/skills/microsoft-foundry)
+1. ノーコードで単一プロンプトのエージェントを _セットアップ_ する - [Foundry ポータル](https://learn.microsoft.com/en-us/azure/foundry/how-to/navigate-from-classic?view=foundry#navigate-the-portal) を使用。
+1. マルチエージェントソリューションをコードファーストで _構築_ する - [Foundry SDK](https://learn.microsoft.com/en-us/azure/foundry/how-to/develop/sdk-overview?view=foundry&pivots=programming-language-python) を使用。
+1. コーディングエージェントで AI エージェントを _観測・最適化_ する - [Foundry skills](https://github.com/microsoft/GitHub-Copilot-for-Azure/tree/main/plugin/skills/microsoft-foundry) を使用。
 
 <br/>
 
-## Workshop Outline
+## ワークショップの流れ
 
-### 1. Getting Started
+### 1. はじめに
 
-This workshop has two paths to choose from:
-- **Base Path**: Complete Steps 1 & 2 to setup your infra & dev environment.
-- **Path A**: Do Step 3. Uses _Foundry Skills_ to automate the eval-optimize loop.
-- **Path B**: Do Step 4. Uses _Foundry SDK_ for traditional coding (manual).
+このワークショップには、選択できる 2 つのパスがあります:
 
-Completing the end-to-end journey with _either_ path can take 60 minutes or more. Pick one to complete - then try the second if time permits.
+- **共通パス**: ステップ 1 と 2 を完了して、インフラと開発環境をセットアップします。
+- **パス A**: ステップ 3 を実施。_Foundry Skills_ を使って評価-最適化ループを自動化します。
+- **パス B**: ステップ 4 を実施。_Foundry SDK_ を使った従来型のコーディング (手動) を行います。
 
-| Step | Instructions | Tool · Outcome |
+いずれのパスでもエンドツーエンドの旅を完了するには 60 分以上かかる場合があります。まず 1 つを選んで完了し、時間が許せばもう一方も試してみてください。
+
+| ステップ | 手順 | ツール · 成果 |
 |:---|:---|:---|
-| 1. | [Infrastructure Setup](./labs/notebooks/0-setup/lab-00-setup-project.md) | Foundry Portal · Setup Foundry project |
-| 2. | [Dev Environment Setup](./labs/notebooks/0-setup/lab-01-setup-codespaces.md) | GitHub Codespaces · Setup local .env |
-| 3. | [Activate Observe Skill](./labs/notebooks/1-prompt-agents/README.skills.md)| Foundry Skills · Run eval-optimize loop  |
-| 4. | [Build It Step-By-Step](./labs/notebooks/1-prompt-agents/README.sdk.md)| Foundry SDK · Go plan-production manually |
+| 1. | [インフラのセットアップ](./labs/notebooks-jp/0-setup/lab-00-setup-project.md) | Foundry ポータル · Foundry プロジェクトをセットアップ |
+| 2. | [開発環境のセットアップ](./labs/notebooks-jp/0-setup/lab-01-setup-codespaces.md) | GitHub Codespaces · ローカルの .env をセットアップ |
+| 3. | [Observe スキルを有効化](./labs/notebooks-jp/1-prompt-agents/README.skills.md)| Foundry Skills · 評価-最適化ループを実行 |
+| 4. | [ステップバイステップで構築](./labs/notebooks-jp/1-prompt-agents/README.sdk.md)| Foundry SDK · 計画から本番まで手動で進める |
 | | | |
 
-### 2. Next Steps
-The current workshop (v1) is setup for use with _prompt_ agents. The next version (v2) will expand this to showcase _hosted agents_ that use custom code and runtimes with a containerized environment for maximum developer control. Fork & watch the repo for updates in May/June 2026.
+### 2. 次のステップ
 
-**The key takeaway** is that the Microsoft Foundry Observability platform will work effectively with _any_ agent (build using any programming language or framework) provided it supports OpenTelemetry-compliant traces and Responses API compliant endpoints.
+現在のワークショップ (v1) は _プロンプト_ エージェント向けに構成されています。次のバージョン (v2) では、最大限の開発者制御を可能にするコンテナ化された環境上で、カスタムコードとランタイムを使用する _ホスト型エージェント_ を紹介する予定です。2026 年 5 月～ 6 月の更新については、リポジトリを Fork してウォッチしてください。
+
+**重要なポイント** は、Microsoft Foundry の Observability プラットフォームは、OpenTelemetry 準拠のトレースと Responses API 準拠のエンドポイントをサポートしている限り、_任意の_ エージェント (任意のプログラミング言語やフレームワークで構築されたもの) に対して効果的に機能する、ということです。
 
 
-### 3. Related Resources 
+### 3. 関連リソース
 
-The Microsoft _Foundry Control Plane_ provides tools and features to support _security, compliance, fleet management and observability_ for your agentic AI solutions - along with a unified role-aware management interface accessed through the "Operate" tab of the Microsoft Foundry portal. 
+Microsoft の _Foundry コントロールプレーン_ は、エージェント型 AI ソリューションに対する _セキュリティ・コンプライアンス・フリート管理・観測性_ を支援するツールと機能を提供します。さらに、Microsoft Foundry ポータルの「Operate」タブからアクセスできる、ロールに応じた統合管理インターフェイスも備えています。
 
 ![FCP](./labs/assets/foundry-control-plane.png)
 
-In this workshop, we put the spotlight on Observability - but we encourage you to explore the resources below to dive deeper into the various components involved.
+このワークショップでは Observability にスポットライトを当てていますが、関連する各コンポーネントについて深く掘り下げるため、以下のリソースもぜひご活用ください。
 
-| Resource | Description |
+| リソース | 説明 |
 |----------|-------------|
-| [Foundry Control Plane](https://learn.microsoft.com/en-us/azure/foundry/control-plane/overview?view=foundry) | Enterprise-wide visibility, governance, and control of AI agents, models & tools |
-| [Observability](https://learn.microsoft.com/en-us/azure/foundry/concepts/observability?view=foundry) | Monitor, understand, and troubleshoot your AI agents |
-| [Agent Tracing](https://learn.microsoft.com/en-us/azure/foundry/observability/concepts/trace-agent-concept?view=foundry) | OpenTelemetry (OTel) protocols & semantic conventions support in Foundry |
-| [Evaluations](https://learn.microsoft.com/en-us/azure/foundry/concepts/built-in-evaluators?view=foundry) | Built-in and custom evaluators for quality, safety & agentic performance |
-| [Red Teaming](https://learn.microsoft.com/en-us/azure/foundry/concepts/ai-red-teaming-agent?view=foundry) | Adversarial testing for targeted risk categories & attack strategies |
+| [Foundry Control Plane](https://learn.microsoft.com/en-us/azure/foundry/control-plane/overview?view=foundry) | AI エージェント・モデル・ツールに対する全社的な可視性、ガバナンス、制御 |
+| [Observability](https://learn.microsoft.com/en-us/azure/foundry/concepts/observability?view=foundry) | AI エージェントの監視・理解・トラブルシューティング |
+| [Agent Tracing](https://learn.microsoft.com/en-us/azure/foundry/observability/concepts/trace-agent-concept?view=foundry) | Foundry における OpenTelemetry (OTel) プロトコルとセマンティック規約のサポート |
+| [Evaluations](https://learn.microsoft.com/en-us/azure/foundry/concepts/built-in-evaluators?view=foundry) | 品質・安全性・エージェント性能のための組み込み評価器とカスタム評価器 |
+| [Red Teaming](https://learn.microsoft.com/en-us/azure/foundry/concepts/ai-red-teaming-agent?view=foundry) | 特定のリスクカテゴリと攻撃戦略に対する敵対的テスト |
 | | |
 
 
-## Workshop Branches
+## ワークショップのブランチ
 
-This workshop is intended to be an evergreen resource that will evolve to reflect the latest Microsoft Foundry platform updates. For convenience, we will maintain _branches_ for prior workshop versions that were delivered at specific events.
+このワークショップは、Microsoft Foundry プラットフォームの最新の更新を反映して進化し続ける、長く活用できるリソースとなることを目指しています。利便性のため、特定のイベントで提供された過去のワークショップ版を _ブランチ_ として保持しています。
 
-| Date | Branch | Description |
+| 日付 | ブランチ | 説明 |
 |:---|:---|:---|
-| Mar 27 2026 | [2026-03-mvp-summit](https://github.com/Azure-Samples/microsoft-foundry-e2e-agent-observability-workshop/tree/2026-03-mvp-summit) | Prompt agent with `observe` skill |
-| Apr 04 2026 | [2026-04-aie-europe](https://github.com/Azure-Samples/microsoft-foundry-e2e-agent-observability-workshop/tree/2026-04-aie-europe) | Prompt agent with `observe` skill |
-| Apr 18 2026 | [2026-04-msft-tw](https://github.com/Azure-Samples/microsoft-foundry-e2e-agent-observability-workshop/tree/2026-04-aie-europe) | Prompt agent with `observe` skill |
+| 2026/03/27 | [2026-03-mvp-summit](https://github.com/Azure-Samples/microsoft-foundry-e2e-agent-observability-workshop/tree/2026-03-mvp-summit) | `observe` スキル付きプロンプトエージェント |
+| 2026/04/04 | [2026-04-aie-europe](https://github.com/Azure-Samples/microsoft-foundry-e2e-agent-observability-workshop/tree/2026-04-aie-europe) | `observe` スキル付きプロンプトエージェント |
+| 2026/04/18 | [2026-04-msft-tw](https://github.com/Azure-Samples/microsoft-foundry-e2e-agent-observability-workshop/tree/2026-04-aie-europe) | `observe` スキル付きプロンプトエージェント |
 | | | |
 
 
-## Contributing
+## コントリビューション
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit [Contributor License Agreements](https://cla.opensource.microsoft.com).
+このプロジェクトでは、コントリビューションと提案を歓迎しています。ほとんどのコントリビューションでは、あなたがコントリビューションする権利を有しており、実際に私たちにその利用権を付与することを宣言する Contributor License Agreement (CLA) に同意していただく必要があります。詳細は [Contributor License Agreements](https://cla.opensource.microsoft.com) をご覧ください。
 
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
+プルリクエストを送信すると、CLA ボットが自動的に CLA の提供が必要かどうかを判定し、PR に適切な装飾を行います (ステータスチェック、コメントなど)。ボットの指示に従ってください。CLA を利用するすべてのリポジトリで、これは一度だけ行えば十分です。
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+このプロジェクトは [Microsoft オープンソース行動規範](https://opensource.microsoft.com/codeofconduct/) を採用しています。詳細については [行動規範に関する FAQ](https://opensource.microsoft.com/codeofconduct/faq/) を参照するか、追加の質問やコメントがあれば [opencode@microsoft.com](mailto:opencode@microsoft.com) までお問い合わせください。
 
-## Trademarks
+## 商標
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft
-trademarks or logos is subject to and must follow
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
+このプロジェクトには、プロジェクト・製品・サービスの商標やロゴが含まれている場合があります。Microsoft の商標やロゴの正当な使用は、[Microsoft の商標およびブランド ガイドライン](https://www.microsoft.com/legal/intellectualproperty/trademarks/usage/general) に従う必要があります。本プロジェクトの改変版において Microsoft の商標やロゴを使用する場合、混乱を招いたり、Microsoft の後援を示唆したりしてはなりません。第三者の商標やロゴの使用は、当該第三者のポリシーに従う必要があります。

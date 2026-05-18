@@ -783,7 +783,7 @@ SPEAKER NOTES:
 
 Microsoft Foundry Control Plane は **セキュリティ・コンプライアンス・フリート管理・ Observability** のツールを提供します — "Operate" タブからアクセス可能です。
 
-![w:800](../../assets/foundry-control-plane.png)
+![w:800](../../../assets/foundry-control-plane.png)
 
 > 今回は **Observability** にフォーカスしましたが、プラットフォームはライフサイクル全体をカバーします。
 
