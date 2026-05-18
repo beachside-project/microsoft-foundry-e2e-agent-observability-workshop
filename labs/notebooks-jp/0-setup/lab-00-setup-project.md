@@ -49,7 +49,7 @@ Foundry プロジェクトのランディングページが表示されます。
 
 ## Step 7: エージェントを作成する
 
-"Create agent" をクリックして、エージェント作成ワークフローに進みます。エージェントには識別しやすい名前として `contoso-travel-portal` を付けます。
+画面右上の "Build" をクリックし、"Create agent" をクリックして、エージェント作成ワークフローに進みます。エージェントには識別しやすい名前として `contoso-travel-portal` を付けます。
 
 ![Create Agent](assets/07-create-agent.png)
 
@@ -61,7 +61,7 @@ Foundry プロジェクトのランディングページが表示されます。
 
 ## Step 9: Agent Playground の準備完了
 
-これで playground でエージェントをテストできる状態になりました。補足: Tools ペインに "Web Search" ツールが既定で表示されて _いない_ 場合は、Tools ドロップダウンをクリックし、Web Search トグルを有効化して _Grounding with Bing_ を使用してください。以下と同じ画面になるはずです。
+これで playground でエージェントをテストできる状態になりました。補足: Tools ペインに "Web Search" ツールが既定で表示されて _いない_ 場合は、Tools セクション内の "Add" ボタンををクリックし、Web Search トグルを有効化します。以下と同じ画面になるはずです。
 
 ![Agent Playground Ready](assets/09-agent-playground-ready.png)
 
@@ -186,48 +186,36 @@ starter prompts のいずれかをクリックしてテストします。
 1. Trace ID が何を示しているのか理解したい場合は、**Ask AI** ボタンをクリックしてみます。
 
     ```bash
-    Explain what the trace ID is showing
+    トレースIDが何を示しているのか説明してください。
     ```
 
 1. 次のような応答が得られる場合があります。
 
     ```bash
-    In Azure AI Foundry, a trace ID is a unique identifier that represents a single trace, which captures the journey of a workflow or operation through the system. The trace consists of multiple spans, each representing a discrete operation or step within that workflow, including start and end times, metadata, and hierarchical relationships.
+    Trace IDは、Azure AI Foundryにおいて、ユーザーとエージェント間の対話やエージェントの実行に関する一連の操作やイベントの追跡を示す識別子です。Trace IDを使うことで、特定の会話やエージェントの動作の詳細（入力、出力、ツールの呼び出し、実行ステップなど）を時系列で確認し、動作の理解やデバッグが可能になります。
 
-    The trace ID helps you track and correlate all related spans and telemetry data for a particular request or workflow execution. This is especially useful for troubleshooting and diagnosing issues, as it allows you to see the detailed sequence of operations, inputs, outputs, and any anomalies or errors that occurred during the execution.
-
-    For example, if you encounter an error or unexpected output in an agent conversation or evaluation run, the trace ID lets you locate the exact trace in Application Insights or your monitoring system. You can then analyze the spans within that trace to understand where the execution diverged or failed, what inputs were processed, and what outputs were generated at each step.
-
-    To use tracing effectively in Azure AI Foundry:
-
-    Enable tracing in your project by linking it to an Azure Application Insights resource.
-    Collect trace data and system metrics for your workflows and agents.
-    Use the trace ID to search and analyze traces in Application Insights or other telemetry tools.
-    Review spans and attributes within the trace to pinpoint issues or performance bottlenecks.
-    In summary, the trace ID is a key tool for observability in Azure AI Foundry, providing deep visibility into the internal execution of your AI workflows and enabling precise troubleshooting and performance analysis.
+    具体的には、Foundryポータルの「Traces」ページでTrace IDを検索すると、そのTraceに関連する会話履歴や応答情報、実行されたアクションの順序、ユーザーとエージェント間の入出力が確認できます。これにより、AIエージェントの動作の理由を理解し、問題解決を支援します。
+    ....
     ```
 
 1. **Tip: Portal で見えている内容の説明には Ask AI を使ってみましょう**。Ask AI はアカウントの状態を理解しており、現在の開発ワークフローのコンテキストに沿った有用な洞察を提供できます。問題の診断や情報の発見を直感的に進めるためのよい方法です。
-    - たとえば、Trace ID ビューから trace（waterfall text）をコピーして Ask AI chat に貼り付け、`トレースを分析して、洞察を与え、構成要素を説明してもらえますか？` と質問してみてください。spans や trace logs に対する理解を深められます。
+    - たとえば、Trace ID ビューから trace（waterfall text）をコピーして Ask AI chat に貼り付け、`トレースを分析して、構成要素を説明してください` と質問してみてください。spans や trace logs に対する理解を深められます。
 
 ## Step 21: Conversation Trace を確認する
 
 1. conversation history も確認できます。同じ conversation ID に対して複数の trace ID logs が存在する点に注目してください。それぞれが会話の 1 ターンを表しており、以降のターンのために conversation history が保持されています。
-1. これが何を表しているのか質問してみます。次のような応答が表示される場合があります。
+1. Conversation ID が何を表しているのか質問してみます。次のような応答が表示される場合があります。
 
     ```bash
-    A Conversation ID in Azure AI Foundry represents the persistent context of an end-to-end dialogue history between a user and an agent. It uniquely identifies a conversation session, allowing you to track and review the entire interaction, including messages, tool calls, responses, and tokens exchanged during that session.
+    Trace の Conversation ID は、Azure AI Foundry におけるエージェントとの対話の一連の履歴（会話の文脈）を一意に識別するIDです。Conversation ID を使うことで、エージェントとの対話履歴の詳細、応答情報、トークン使用量、実行されたアクションやツール呼び出し、ユーザーとエージェント間の入出力などを確認できます。
 
-    You can use the Conversation ID to:
+    Foundry ポータルの Traces タブで Conversation ID を検索・選択すると、その会話の履歴や詳細をステップごとにレビュー可能です。Conversation は複数回のやり取りをまたいで状態を保持し、継続的な対話をサポートします。
 
-    View conversation history details and response information.
-    Inspect ordered actions, run steps, and tool calls.
-    Analyze inputs and outputs between the user and the agent.
-    Conversations are durable and can be reused across sessions, enabling multi-turn and cross-session continuity without rebuilding context manually. This makes debugging and managing conversations easier.
-
-    In the Foundry portal, you can search for a Conversation ID to review the full conversation and its related trace data, helping you understand the flow and outcome of the interaction.
-
-    This concept is distinct from a Trace ID, which tracks the technical execution of a workflow or operation, while the Conversation ID focuses on the dialogue context and content.
+    要点：
+    - Conversation ID は対話の履歴を一意に識別するID
+    - Foundry ポータルの Traces タブで確認可能
+    - 会話の履歴、応答、ツール呼び出しなど詳細を表示
+    - 状態管理により複数ターンの対話を持続可能
     ```
 
 1. ここで **trace-linked evaluations** が利用できるようになっている点に注目してください。任意の trace ID に対して、右ペインの Evaluations タブをクリックすると、使用された evaluators と評価された AI quality スコア、そしてそのスコアになった理由の説明を確認できます。これにより、問題検出（eval metrics）と診断（trace logs）のループをより早く閉じられます。たとえば、モデルをアップグレードした後に AI quality が低下した場合、trace を確認することで、新しいモデルが適切なツールを呼び出していなかったことを診断できる可能性があります。
@@ -264,29 +252,29 @@ preview タブ内でエージェントの応答を確認できます。
 
 ここまでで、agent playground における _Tracing_ と _Evaluations_ の機能の概要をつかめたはずです。Microsoft Foundry には多数の built-in evaluators が用意されており、_code-first_ でも呼び出すことができます。
 
-1. サイドバーメニューの Evaluations 項目をクリックします。
+1. サイドバーメニューの Evaluations をクリックします。
 1. _Evaluators catalog_ を選択し、サポートされている evaluators の一覧を表示します。
 1. 特定のカテゴリの evaluators が表示されるようにフィルターします。例: agents
 1. 任意の evaluator について説明を得るには "Ask AI" を使います。例:
 
     ```bash
-    tell me more about the Protected-Material evaluator
+    Protected-Material-Evaluator とはどんなメトリクス？
     ```
 
     ![Review Evals](assets/28-evaluations-catalog.png)
 
-1. _Create_ ボタンをクリックします。このダイアログが表示されます。これは、built-in evaluators ではカバーされない要件固有の基準を扱うために、_custom evaluator_ を作成するワークフローです。**ここでは使用しませんが、あとで自分でも試してみてください。**
+1. _Create evaluator_ ボタンをクリックします。このダイアログが表示されます。これは、built-in evaluators ではカバーされない要件固有の基準を扱うために、_custom evaluator_ を作成するワークフローです。**ここでは使用しませんが、あとで自分でも試してみてください。**
 
     ![Review Custom Eval](assets/28-evaluations-custom.png)
 
 
 ## Step 27: Red Teaming Scan を実行する
 
-1. Portal の **サイドバー** にある _Evaluations_ タブをクリックします。これにより、そのエージェント固有ではなく、プロジェクト全体の Evaluations に移動します。
-1. Red Teaming タブをクリックします。
+1. Portal の **サイドバー** にある _Evaluations_ タブをクリックします。
+1. Red team タブをクリックし、_create_ ボタンをクリックします。
     ![Red Teaming](assets/29-red-teaming-create.png)
 1. ここでは _Model_ オプションを選択し、エージェントで使用している既定のモデル（例: gpt-4.1）を選びます。
-1. ダイアログに従って進み、risk categories と attack strategies は多くても 1-2 個だけ選択します（scan を完了させることが目的です）。
+1. ダイアログに従って進み、Risk categories と Attack strategies は多くても 1-2 個だけ選択します（scan を完了させることが目的です）。
 1. scan を送信します。完了まで時間がかかるため、後で再度確認します。
 
 ## Next: 開発環境をセットアップする
