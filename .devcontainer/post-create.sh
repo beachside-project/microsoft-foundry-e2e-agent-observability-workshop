@@ -13,7 +13,4 @@ npm install -g @marp-team/marp-cli
 echo "Installing Python dependencies ..."
 pip install --upgrade pip
 
-echo "Installing Jupyter kernel support ..."
-pip install ipykernel --quiet
-
 echo "Post-create setup complete."
