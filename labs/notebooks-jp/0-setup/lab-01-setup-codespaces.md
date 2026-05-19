@@ -31,7 +31,7 @@ az account show
 _また、VS Code の Foundry Toolkit for VS Code と Azure 拡張機能が正しいテナントを使用しているかも確認してください_。
 
 1. Azure 拡張機能のアイコンをクリック - Accounts & Tenants タブを見て、1 つだけがチェックされていることを確認します。
-1. Foundry Toolkit for VS Code のアイコンをクリック - My Resources を見て、既定の Foundry プロジェクトが設定されていることを確認します。
+1. Foundry Toolkit for VS Code のアイコンをクリック - My Resources を見て、Default の Foundry Project に、ハンズオンで作成した Foundry project が設定されていることを確認します。
 
 
 1. VS Code のターミナルで、次のコマンドを実行します:

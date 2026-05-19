@@ -1,0 +1,17 @@
+# Core Azure AI SDK
+azure-ai-projects>=2.0.0
+azure-identity
+python-dotenv
+
+# Observability
+opentelemetry-sdk
+azure-core-tracing-opentelemetry
+azure-monitor-opentelemetry
+
+# Jupyter notebook runtime
+ipykernel
+ipywidgets
+jupyter
+
+# Data
+pandas
